@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-orange-500 shadow-md sticky top-0 left-0 w-full z-50">
+    <nav className="bg-green-500 shadow-md sticky top-0 left-0 w-full z-50">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -29,25 +29,42 @@ const Navbar = () => {
               <>
                 <NavLink
                   to="/"
-                  className="text-white hover:text-gray-200 transition"
+                  className={({ isActive }) =>
+                    `text-white hover:text-gray-200 transition ${
+                      isActive ? "border-b-2" : ""
+                    }`
+                  }
                 >
                   Get Number
                 </NavLink>
+
                 <NavLink
                   to="/dashboard"
-                  className="text-white hover:text-gray-200 transition"
+                  className={({ isActive }) =>
+                    `text-white hover:text-gray-200 transition ${
+                      isActive ? "border-b-2" : ""
+                    }`
+                  }
                 >
                   Dashboard
                 </NavLink>
                 <NavLink
                   to="/login"
-                  className="text-white hover:text-gray-200 transition"
+                  className={({ isActive }) =>
+                    `text-white hover:text-gray-200 transition ${
+                      isActive ? "border-b-2" : ""
+                    }`
+                  }
                 >
                   Login
                 </NavLink>
                 <NavLink
                   to="/signup"
-                  className="text-white hover:text-gray-200 transition"
+                  className={({ isActive }) =>
+                    `text-white hover:text-gray-200 transition ${
+                      isActive ? "border-b-2" : ""
+                    }`
+                  }
                 >
                   Signup
                 </NavLink>
@@ -57,7 +74,11 @@ const Navbar = () => {
                 <div className="p-2 space-x-8">
                   <NavLink
                     to="/teller"
-                    className="text-white hover:text-gray-200 transition"
+                    className={({ isActive }) =>
+                      `text-white hover:text-gray-200 transition ${
+                        isActive ? "border-b-2" : ""
+                      }`
+                    }
                   >
                     Teller Dashboard
                   </NavLink>
@@ -65,14 +86,18 @@ const Navbar = () => {
                   <NavLink
                     to="/"
                     onClick={handleLogout}
-                    className="text-white hover:text-gray-200 transition"
+                    className={({ isActive }) =>
+                      `text-white hover:text-gray-200 transition ${
+                        isActive ? "border-b-2" : ""
+                      }`
+                    }
                   >
                     Logout
                   </NavLink>
                 </div>
 
                 {/* User Profile */}
-                <div className="flex items-center space-x-2 bg-white text-orange-500 px-4 py-2 rounded-lg shadow-sm">
+                <div className="flex items-center space-x-2 bg-white text-green-500 px-4 py-2 rounded-lg shadow-sm">
                   <CircleUser size={20} />
                   <span className="font-medium">{user.username}</span>
                 </div>
@@ -94,31 +119,47 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-orange-600">
+        <div className="md:hidden bg-green-600">
           <div className="flex flex-col space-y-4 p-4">
             {!user ? (
               <>
                 <NavLink
                   to="/"
-                  className="text-white hover:text-gray-200 transition"
+                  className={({ isActive }) =>
+                    `text-white hover:text-gray-200 transition ${
+                      isActive ? "border-b-2" : ""
+                    }`
+                  }
                 >
                   Get Number
                 </NavLink>
                 <NavLink
                   to="/dashboard"
-                  className="text-white hover:text-gray-200 transition"
+                  className={({ isActive }) =>
+                    `text-white hover:text-gray-200 transition ${
+                      isActive ? "border-b-2" : ""
+                    }`
+                  }
                 >
                   Dashboard
                 </NavLink>
                 <NavLink
                   to="/login"
-                  className="text-white hover:text-gray-200 transition"
+                  className={({ isActive }) =>
+                    `text-white hover:text-gray-200 transition ${
+                      isActive ? "border-b-2" : ""
+                    }`
+                  }
                 >
                   Login
                 </NavLink>
                 <NavLink
                   to="/signup"
-                  className="text-white hover:text-gray-200 transition"
+                  className={({ isActive }) =>
+                    `text-white hover:text-gray-200 transition ${
+                      isActive ? "border-b-2" : ""
+                    }`
+                  }
                 >
                   Signup
                 </NavLink>
@@ -127,7 +168,11 @@ const Navbar = () => {
               <>
                 <NavLink
                   to="/teller"
-                  className="text-white hover:text-gray-200 transition"
+                  className={({ isActive }) =>
+                    `text-white hover:text-gray-200 transition ${
+                      isActive ? "border-b-2" : ""
+                    }`
+                  }
                 >
                   Teller Dashboard
                 </NavLink>
@@ -135,13 +180,17 @@ const Navbar = () => {
                 <NavLink
                   to="/"
                   onClick={handleLogout}
-                  className="text-white hover:text-gray-200 transition"
+                  className={({ isActive }) =>
+                    `text-white hover:text-gray-200 transition ${
+                      isActive ? "border-b-2" : ""
+                    }`
+                  }
                 >
                   Logout
                 </NavLink>
 
                 {/* User Profile */}
-                <div className="flex items-center space-x-2 bg-white text-orange-500 px-4 py-2 rounded-lg shadow-sm">
+                <div className="flex items-center space-x-2 bg-white text-green-500 px-4 py-2 rounded-lg shadow-sm">
                   <CircleUser size={20} />
                   <span className="font-medium">{user.username}</span>
                 </div>

@@ -55,15 +55,15 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xs text-center border-2 border-orange-400">
+    <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xs text-center border-t-3 border-green-400">
       {status === "serving" && window_no && (
-        <p className="text-sm font-semibold text-white bg-orange-300 rounded-xl p-1">
+        <p className="text-sm font-semibold text-white bg-green-400 rounded-xl p-1">
           Please proceed to Window No. {window_no}
         </p>
       )}
 
-      <h2 className="text-xl font-bold text-orange-400">{name}</h2>
-      <p className="text-4xl font-semibold text-orange-400 mt-2">{number}</p>
+      <h2 className="text-xl font-bold text-green-700">{name}</h2>
+      <p className="text-4xl font-semibold text-green-700 mt-2">{number}</p>
 
       {user && (
         <div className="mt-4 space-y-2">
@@ -75,8 +75,8 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
               disabled={buttonState.next.disabled}
               className={`w-full text-lg py-2 rounded-lg transition ${
                 buttonState.next.disabled
-                  ? "bg-gray-400"
-                  : "bg-orange-500 hover:bg-orange-600 text-white"
+                  ? "bg-green-400"
+                  : "bg-green-500 hover:bg-green-600 text-white"
               }`}
             >
               {buttonState.next.text}
@@ -92,8 +92,8 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
                 disabled={buttonState.reserve.disabled}
                 className={`w-full text-lg py-2 rounded-lg transition ${
                   buttonState.reserve.disabled
-                    ? "bg-gray-400"
-                    : "bg-blue-500 hover:bg-blue-600 text-white"
+                    ? "bg-green-400"
+                    : "bg-green-800 hover:bg-green-700 text-white"
                 }`}
               >
                 {buttonState.reserve.text}
@@ -106,7 +106,7 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
                 disabled={buttonState.complete.disabled}
                 className={`w-full text-lg py-2 rounded-lg transition ${
                   buttonState.complete.disabled
-                    ? "bg-gray-400"
+                    ? "bg-green-400"
                     : "bg-green-500 hover:bg-green-600 text-white"
                 }`}
               >
@@ -123,8 +123,8 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
               disabled={buttonState.recall.disabled}
               className={`w-full text-lg py-2 rounded-lg transition ${
                 buttonState.recall.disabled
-                  ? "bg-gray-400"
-                  : "bg-blue-500 hover:bg-blue-600 text-white"
+                  ? "bg-green-400"
+                  : "bg-green-800 hover:bg-green-700 text-white"
               }`}
             >
               {buttonState.recall.text}

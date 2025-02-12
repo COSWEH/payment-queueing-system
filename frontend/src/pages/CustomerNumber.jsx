@@ -75,9 +75,9 @@ const CustomerNumber = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <Toaster position="top-right" />
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md text-center">
+      <div className="bg-white shadow-2xl shadow-green-500 rounded-lg p-6 w-full max-w-md text-center">
         <form onSubmit={handleGetNumber}>
-          <h1 className="text-3xl font-bold text-orange-500 mb-4">
+          <h1 className="text-3xl font-bold text-green-500 mb-4">
             Get Your Number
           </h1>
 
@@ -88,24 +88,24 @@ const CustomerNumber = () => {
             placeholder="Enter your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition mb-4"
+            className="w-full p-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition mb-4"
           />
 
           <button
             onClick={handleGetNumber}
-            className="w-full text-lg py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
+            className="w-full text-lg py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
           >
             Get Number
           </button>
         </form>
 
         {displayName && (
-          <p className="mt-4 text-lg font-semibold text-orange-500">
+          <p className="mt-4 text-lg font-semibold text-green-500">
             <span className="text-sm">Latest Queue Name:</span> {displayName}
           </p>
         )}
         {number !== 0 && (
-          <p className="mt-4 text-lg font-semibold text-orange-500">
+          <p className="mt-4 text-lg font-semibold text-green-500">
             <span className="text-sm">Latest Queue Number:</span> {number}
           </p>
         )}

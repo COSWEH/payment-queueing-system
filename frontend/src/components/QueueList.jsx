@@ -24,50 +24,55 @@ const QueueList = () => {
       }
     };
     getQueueData();
-  }, []);
+  }, [user]);
 
-  let waitingQueue = [];
-  let servingQueue = [];
-  let reserveQueue = [];
+  const waitingQueue = queue?.filter((item) => item.status === "waiting") || [];
+  const servingQueue =
+    queue?.filter(
+      (item) =>
+        item.status === "serving" &&
+        (teller_id ? item.teller_id === teller_id : true)
+    ) || [];
 
-  if (teller_id === null) {
-    waitingQueue = queue?.filter((item) => item.status === "waiting") || [];
-    servingQueue = queue?.filter((item) => item.status === "serving") || [];
-    reserveQueue = queue?.filter((item) => item.status === "reserve") || [];
-  } else {
-    waitingQueue = queue?.filter((item) => item.status === "waiting") || [];
-    servingQueue =
-      queue?.filter(
-        (item) => item.status === "serving" && item.teller_id === teller_id
-      ) || [];
-    reserveQueue =
-      queue?.filter(
+  const reserveQueue = teller_id
+    ? queue?.filter(
         (item) => item.status === "reserve" && item.teller_id === teller_id
-      ) || [];
-  }
+      ) || []
+    : [];
+
+  // Dynamically adjust grid columns based on available sections
+  const gridCols = teller_id
+    ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+    : "grid-cols-1 sm:grid-cols-2";
 
   return (
     <>
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-5xl mx-auto text-center">
+      <div
+        className={`grid ${gridCols} gap-8 w-full max-w-5xl mx-auto text-center`}
+      >
         {/* Waiting Section */}
         <div className="flex flex-col items-center">
-          <h2 className="text-xl font-bold uppercase mb-4 text-orange-600">
+          <h2 className="text-xl font-bold uppercase mb-4 text-green-600">
             Waiting
           </h2>
           <div className="space-y-4 w-full flex flex-col items-center">
-            {waitingQueue.map((item) => (
-              <Queue
-                key={item.queue_number}
-                name={item.name}
-                number={item.queue_number}
-                status={item.status}
-                window_no={item.window_no}
-                showToast={toast}
-              />
-            ))}
+            {waitingQueue.length > 0 ? (
+              waitingQueue.map((item) => (
+                <Queue
+                  key={item.queue_number}
+                  name={item.name}
+                  number={item.queue_number}
+                  status={item.status}
+                  window_no={item.window_no}
+                  showToast={toast}
+                />
+              ))
+            ) : (
+              <p className="text-gray-500">No waiting customers</p>
+            )}
           </div>
         </div>
 
@@ -77,37 +82,47 @@ const QueueList = () => {
             Serving
           </h2>
           <div className="space-y-4 w-full flex flex-col items-center">
-            {servingQueue.map((item) => (
-              <Queue
-                key={item.queue_number}
-                name={item.name}
-                number={item.queue_number}
-                status={item.status}
-                window_no={item.window_no}
-                showToast={toast}
-              />
-            ))}
+            {servingQueue.length > 0 ? (
+              servingQueue.map((item) => (
+                <Queue
+                  key={item.queue_number}
+                  name={item.name}
+                  number={item.queue_number}
+                  status={item.status}
+                  window_no={item.window_no}
+                  showToast={toast}
+                />
+              ))
+            ) : (
+              <p className="text-gray-500">No one is being served</p>
+            )}
           </div>
         </div>
 
-        {/* Reserve Section */}
-        <div className="flex flex-col items-center">
-          <h2 className="text-xl font-bold uppercase mb-4 text-blue-600">
-            Reserve
-          </h2>
-          <div className="space-y-4 w-full flex flex-col items-center">
-            {reserveQueue.map((item) => (
-              <Queue
-                key={item.queue_number}
-                name={item.name}
-                number={item.queue_number}
-                status={item.status}
-                window_no={item.window_no}
-                showToast={toast}
-              />
-            ))}
+        {/* Reserve Section (Only for Logged-in Users) */}
+        {teller_id && (
+          <div className="flex flex-col items-center">
+            <h2 className="text-xl font-bold uppercase mb-4 text-green-800">
+              Reserve
+            </h2>
+            <div className="space-y-4 w-full flex flex-col items-center">
+              {reserveQueue.length > 0 ? (
+                reserveQueue.map((item) => (
+                  <Queue
+                    key={item.queue_number}
+                    name={item.name}
+                    number={item.queue_number}
+                    status={item.status}
+                    window_no={item.window_no}
+                    showToast={toast}
+                  />
+                ))
+              ) : (
+                <p className="text-green-500">No reserved customers</p>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

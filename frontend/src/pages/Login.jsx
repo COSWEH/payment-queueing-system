@@ -25,16 +25,16 @@ const Login = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <Toaster position="top-right" />
 
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md text-center">
+      <div className="bg-white shadow-2xl shadow-green-500 rounded-lg p-6 w-full max-w-md text-center">
         <form onSubmit={handleSubmit}>
-          <h1 className="text-3xl font-bold text-orange-500 mb-4">Login</h1>
+          <h1 className="text-3xl font-bold text-green-500 mb-4">Login</h1>
 
           <input
             type="text"
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full p-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition mb-4"
+            className="w-full p-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition mb-4"
           />
 
           <div className="relative w-full">
@@ -43,7 +43,7 @@ const Login = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition mb-4 pr-10"
+              className="w-full p-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition mb-4 pr-10"
             />
             <button
               type="button"
@@ -57,7 +57,7 @@ const Login = () => {
           <select
             value={windowNo}
             onChange={(e) => setWindowNo(e.target.value)}
-            className="w-full p-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition mb-4"
+            className="w-full p-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition mb-4"
           >
             <option disabled value="">
               Select Window Number
@@ -72,7 +72,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600 transition"
+            className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition"
           >
             Login
           </button>

@@ -22,7 +22,7 @@ const Signup = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <Toaster position="top-right" />
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md text-center">
+      <div className="bg-white shadow-2xl shadow-green-500 rounded-lg p-6 w-full max-w-md text-center">
         <form onSubmit={handleSubmit}>
           <h1 className="text-3xl font-bold text-green-500 mb-4">Signup</h1>
 
@@ -76,7 +76,7 @@ const Signup = () => {
 
           <Link
             to="/login"
-            className="block mt-4 text-center text-orange-600 hover:text-orange-800 font-medium"
+            className="block mt-4 text-center text-green-600 hover:text-green-800 font-medium"
           >
             Already have an account?{" "}
             <span className="hover:underline hover:underline-offset-4">
