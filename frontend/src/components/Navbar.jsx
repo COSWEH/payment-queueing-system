@@ -1,17 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X, CircleUser } from "lucide-react";
 
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { QueueContext } from "../context/QueueContext";
 
 const Navbar = () => {
+  const { fetchQueue } = useContext(QueueContext);
   const [isOpen, setIsOpen] = useState(false);
   const { logout } = useLogout();
   const { user } = useAuthContext();
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
+  };
+
+  const handleResetQueue = async () => {
+    const confirmReset = window.confirm(
+      "Are you sure you want to reset the queue?"
+    );
+
+    if (!confirmReset) return;
+
+    try {
+      const response = await fetch("http://localhost:5000/queue", {
+        method: "DELETE", // Change DELETE to POST
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "An error occurred");
+
+      alert(data.message);
+      setDropdownOpen(false);
+      fetchQueue();
+    } catch (err) {
+      console.error("Error resetting queue:", err);
+      alert("Failed to reset queue. Please try again.");
+    }
   };
 
   return (
@@ -97,9 +127,26 @@ const Navbar = () => {
                 </div>
 
                 {/* User Profile */}
-                <div className="flex items-center space-x-2 bg-white text-green-500 px-4 py-2 rounded-lg shadow-sm">
-                  <CircleUser size={20} />
-                  <span className="font-medium">{user.username}</span>
+                <div className="relative">
+                  <button
+                    className="flex items-center space-x-2 bg-white text-green-500 px-4 py-2 rounded-lg shadow-sm cursor-pointer"
+                    onClick={() => setDropdownOpen(!isDropdownOpen)}
+                  >
+                    <CircleUser size={20} />
+                    <span className="font-medium">{user.username}</span>
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
+                      <button
+                        className="block w-full text-left rounded-lg text-white px-4 py-2 bg-red-500 hover:bg-red-600 cursor-pointer"
+                        onClick={handleResetQueue}
+                      >
+                        Reset Queue
+                      </button>
+                    </div>
+                  )}
                 </div>
               </>
             )}
@@ -190,9 +237,26 @@ const Navbar = () => {
                 </NavLink>
 
                 {/* User Profile */}
-                <div className="flex items-center space-x-2 bg-white text-green-500 px-4 py-2 rounded-lg shadow-sm">
-                  <CircleUser size={20} />
-                  <span className="font-medium">{user.username}</span>
+                <div className="relative">
+                  <button
+                    className="flex items-center space-x-2 bg-white text-green-500 px-4 py-2 rounded-lg shadow-sm cursor-pointer"
+                    onClick={() => setDropdownOpen(!isDropdownOpen)}
+                  >
+                    <CircleUser size={20} />
+                    <span className="font-medium">{user.username}</span>
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {isDropdownOpen && (
+                    <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
+                      <button
+                        className="block w-full text-left rounded-lg text-white px-4 py-2 bg-red-500 hover:bg-red-600 cursor-pointer"
+                        onClick={handleResetQueue}
+                      >
+                        Reset Queue
+                      </button>
+                    </div>
+                  )}
                 </div>
               </>
             )}

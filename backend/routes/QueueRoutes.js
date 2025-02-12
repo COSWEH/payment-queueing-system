@@ -14,6 +14,6 @@ routes.get("/number", getLatestQueueNumber);
 routes.get("/", getAllQueues);
 routes.post("/", createQueue);
 routes.put("/", updateQueue);
-routes.delete("/:id", deleteQueue);
+routes.delete("/", deleteQueue);
 
 module.exports = routes;

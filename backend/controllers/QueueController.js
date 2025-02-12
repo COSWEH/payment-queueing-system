@@ -40,7 +40,6 @@ const getAllQueues = async (req, res) => {
 };
 
 const createQueue = async (req, res) => {
-  console.log("create queue");
   const { name, number } = req.body;
 
   if (!name || !number) {
@@ -112,7 +111,15 @@ const updateQueue = async (req, res) => {
 };
 
 const deleteQueue = async (req, res) => {
-  console.log("delete queue");
+  try {
+    const pool = await poolPromise;
+    await pool.request().query("TRUNCATE TABLE Queue");
+
+    res.status(200).json({ message: "Queue reset successfully!" });
+  } catch (err) {
+    console.error("Error deleting queue:", err);
+    res.status(500).json({ error: "Failed to reset queue." });
+  }
 };
 
 module.exports = {
