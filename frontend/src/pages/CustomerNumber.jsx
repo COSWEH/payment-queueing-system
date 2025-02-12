@@ -41,7 +41,6 @@ const CustomerNumber = () => {
       return;
     }
 
-    // Use the latest number from state to calculate the new number
     const newNumber = parseInt(number, 10) + 1;
 
     console.log(newNumber);
@@ -64,8 +63,6 @@ const CustomerNumber = () => {
       }
 
       toast.success(`Your number is ${newNumber}`);
-
-      // Update state with the new values after a successful insertion
       setNumber(newNumber);
       setDisplayName(name);
       setName("");
