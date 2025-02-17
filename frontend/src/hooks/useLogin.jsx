@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
+  const navigate = useNavigate();
 
   const login = async (username, password, window_no) => {
     setIsLoading(true);
@@ -39,6 +41,7 @@ export const useLogin = () => {
       dispatch({ type: "LOGIN", payload: json });
       toast.success("Login successful!");
       setIsLoading(false);
+      navigate("/teller");
     }
   };
 

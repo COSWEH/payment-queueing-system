@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 
 import { useLogin } from "../hooks/useLogin";
@@ -10,10 +10,35 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [windowNo, setWindowNo] = useState("");
   const [isHidden, setIsHidden] = useState(true);
+  const [windowAvailability, setWindowAvailability] = useState({});
 
   const { login, error, isLoading } = useLogin();
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const checkAllWindowsAvailability = async () => {
+      for (let i = 1; i <= 5; i++) {
+        try {
+          const response = await fetch(
+            "http://localhost:5000/teller/checkWindowNo",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ window_no: i }),
+            }
+          );
+          const data = await response.json();
+          setWindowAvailability((prev) => ({
+            ...prev,
+            [i]: data.message,
+          }));
+        } catch (error) {
+          console.error("Error checking window availability:", error);
+        }
+      }
+    };
+
+    checkAllWindowsAvailability();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +48,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <Toaster position="top-right" />
+      <Toaster />
 
       <div className="bg-white shadow-2xl shadow-green-500 rounded-lg p-6 w-full max-w-md text-center">
         <form onSubmit={handleSubmit}>
@@ -62,11 +87,20 @@ const Login = () => {
             <option disabled value="">
               Select Window Number
             </option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+            {[1, 2, 3, 4, 5].map((num) => (
+              <option
+                key={num}
+                value={num}
+                disabled={windowAvailability[num] === "Occupied"}
+                className={
+                  windowAvailability[num] === "Available"
+                    ? "text-green-600"
+                    : "text-gray-800"
+                }
+              >
+                Window {num} - {windowAvailability[num] || "Checking..."}
+              </option>
+            ))}
           </select>
 
           <button

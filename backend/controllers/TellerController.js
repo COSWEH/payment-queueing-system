@@ -12,9 +12,9 @@ const createToken = (id) => {
 const signupTeller = async (req, res) => {
   console.log("signup teller");
 
-  const { username, password, window_no } = req.body;
+  const { username, password } = req.body;
 
-  if (!username || !password || !window_no) {
+  if (!username || !password) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
@@ -38,9 +38,9 @@ const signupTeller = async (req, res) => {
       .request()
       .input("username", sql.VarChar, username)
       .input("password", sql.VarChar, hashedPassword)
-      .input("window_no", sql.VarChar, window_no)
+
       .query(
-        "INSERT INTO Teller (username, password, window_no) OUTPUT Inserted.id VALUES (@username, @password, @window_no)"
+        "INSERT INTO Teller (username, password) OUTPUT Inserted.id VALUES (@username, @password)"
       );
 
     res.status(201).json({
@@ -124,8 +124,15 @@ const loginTeller = async (req, res) => {
 };
 
 const logoutTeller = async (req, res) => {
-  console.log("logout teller");
+  const { id } = req.body;
+  // console.log("logout teller", id);
   try {
+    const pool = await poolPromise;
+    await pool
+      .request()
+      .input("id", sql.Int, id)
+      .query("UPDATE Teller SET window_no = NULL WHERE id = @id");
+
     res.status(200).json({ message: "Logout successful" });
   } catch (err) {
     console.error(err);
@@ -133,8 +140,32 @@ const logoutTeller = async (req, res) => {
   }
 };
 
+const checkWindowNoAvailability = async (req, res) => {
+  const { window_no } = req.body;
+  try {
+    const pool = await poolPromise;
+    const result = await pool
+      .request()
+      .input("window_no", sql.Int, window_no)
+      .query("SELECT * FROM Teller WHERE window_no = @window_no");
+
+    const isAvailable = result.recordset.length === 0;
+
+    res.status(200).json({
+      isAvailable,
+      message: isAvailable ? "Available" : "Occupied",
+    });
+  } catch (err) {
+    console.error(err);
+    res
+      .status(500)
+      .json({ error: "An error occurred while checking window availability" });
+  }
+};
+
 module.exports = {
   signupTeller,
   loginTeller,
   logoutTeller,
+  checkWindowNoAvailability,
 };

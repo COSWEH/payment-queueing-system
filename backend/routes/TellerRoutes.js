@@ -4,12 +4,14 @@ const {
   signupTeller,
   loginTeller,
   logoutTeller,
+  checkWindowNoAvailability,
 } = require("../controllers/TellerController");
 
 const routes = express.Router();
 
 routes.post("/signup", signupTeller);
 routes.post("/login", loginTeller);
-routes.post("/logout", logoutTeller);
+routes.put("/logout", logoutTeller);
+routes.post("/checkWindowNo", checkWindowNoAvailability);
 
 module.exports = routes;

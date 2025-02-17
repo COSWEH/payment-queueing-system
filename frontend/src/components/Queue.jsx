@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { UserRound, Hash } from "lucide-react";
 
 const Queue = ({ number, name, status, window_no, showToast }) => {
   const [buttonState, setButtonState] = useState({
@@ -57,13 +58,20 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xs text-center border-t-3 border-green-400">
       {status === "serving" && window_no && (
-        <p className="text-sm font-semibold text-white bg-green-400 rounded-xl p-1">
-          Please proceed to Window No. {window_no}
+        <p className="text-sm font-semibold text-white bg-green-400 rounded-xl p-1 flex items-center justify-center gap-1">
+          Please proceed to Window
+          <Hash className="w-4 h-4" /> {window_no}
         </p>
       )}
 
-      <h2 className="text-xl font-bold text-green-700">{name}</h2>
-      <p className="text-4xl font-semibold text-green-700 mt-2">{number}</p>
+      <h2 className="text-2xl font-bold text-green-700 flex items-center justify-center gap-2">
+        <UserRound className="w-6 h-6" />
+        {name}
+      </h2>
+      <p className="text-4xl font-semibold text-green-700 mt-2 flex items-center justify-center gap-2">
+        <Hash className="w-7 h-7" />
+        {number}
+      </p>
 
       {user && (
         <div className="mt-4 space-y-2">
@@ -75,8 +83,8 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
               disabled={buttonState.next.disabled}
               className={`w-full text-lg py-2 rounded-lg transition ${
                 buttonState.next.disabled
-                  ? "bg-green-400"
-                  : "bg-green-500 hover:bg-green-600 text-white"
+                  ? "bg-green-300 text-white"
+                  : "bg-green-400 hover:bg-green-500 text-white"
               }`}
             >
               {buttonState.next.text}
@@ -92,8 +100,8 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
                 disabled={buttonState.reserve.disabled}
                 className={`w-full text-lg py-2 rounded-lg transition ${
                   buttonState.reserve.disabled
-                    ? "bg-green-400"
-                    : "bg-green-800 hover:bg-green-700 text-white"
+                    ? "bg-yellow-400 text-white"
+                    : "bg-yellow-400 hover:bg-yellow-300 text-white"
                 }`}
               >
                 {buttonState.reserve.text}
@@ -106,7 +114,7 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
                 disabled={buttonState.complete.disabled}
                 className={`w-full text-lg py-2 rounded-lg transition ${
                   buttonState.complete.disabled
-                    ? "bg-green-400"
+                    ? "bg-green-400 text-white"
                     : "bg-green-500 hover:bg-green-600 text-white"
                 }`}
               >
@@ -123,8 +131,8 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
               disabled={buttonState.recall.disabled}
               className={`w-full text-lg py-2 rounded-lg transition ${
                 buttonState.recall.disabled
-                  ? "bg-green-400"
-                  : "bg-green-800 hover:bg-green-700 text-white"
+                  ? "bg-yellow-400 text-white"
+                  : "bg-yellow-400 hover:bg-yellow-300 text-white"
               }`}
             >
               {buttonState.recall.text}

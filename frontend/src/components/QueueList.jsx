@@ -102,7 +102,7 @@ const QueueList = () => {
         {/* Reserve Section (Only for Logged-in Users) */}
         {teller_id && (
           <div className="flex flex-col items-center">
-            <h2 className="text-xl font-bold uppercase mb-4 text-green-800">
+            <h2 className="text-xl font-bold uppercase mb-4 text-yellow-500">
               Reserve
             </h2>
             <div className="space-y-4 w-full flex flex-col items-center">

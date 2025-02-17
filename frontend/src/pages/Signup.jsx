@@ -8,7 +8,6 @@ import { useSignup } from "../hooks/useSignup";
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [windowNo, setWindowNo] = useState("");
   const [isHidden, setIsHidden] = useState(true);
 
   const { signup, error, isLoading } = useSignup();
@@ -16,12 +15,12 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await signup(username, password, windowNo);
+    await signup(username, password);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <Toaster position="top-right" />
+      <Toaster />
       <div className="bg-white shadow-2xl shadow-green-500 rounded-lg p-6 w-full max-w-md text-center">
         <form onSubmit={handleSubmit}>
           <h1 className="text-3xl font-bold text-green-500 mb-4">Signup</h1>
@@ -50,21 +49,6 @@ const Signup = () => {
               {isHidden ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
-
-          <select
-            value={windowNo}
-            onChange={(e) => setWindowNo(e.target.value)}
-            className="w-full p-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition mb-4"
-          >
-            <option disabled value="">
-              Select Window Number
-            </option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
 
           <button
             type="submit"

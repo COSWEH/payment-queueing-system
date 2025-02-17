@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { useAuthContext } from "./useAuthContext";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const useSignup = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
-  const { dispatch } = useAuthContext();
+  const navigate = useNavigate();
 
-  const signup = async (username, password, window_no) => {
+  const signup = async (username, password) => {
     setIsLoading(true);
     setError(null);
 
-    if (!username.trim() || !password.trim() || !window_no.trim()) {
+    if (!username.trim() || !password.trim()) {
       toast.error("All fields are required");
       setIsLoading(false);
       return;
@@ -20,7 +20,7 @@ export const useSignup = () => {
     const response = await fetch("http://localhost:5000/teller/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password, window_no }),
+      body: JSON.stringify({ username, password }),
     });
 
     const json = await response.json();
@@ -38,11 +38,9 @@ export const useSignup = () => {
     }
 
     if (response.ok) {
-      localStorage.setItem("user", JSON.stringify(json));
-
-      dispatch({ type: "LOGIN", payload: json });
       toast.success("Signup successful!");
       setIsLoading(false);
+      navigate("/login");
     }
   };
 

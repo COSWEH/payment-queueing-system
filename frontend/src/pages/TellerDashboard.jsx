@@ -34,7 +34,7 @@ const TellerDashboard = () => {
 
   return (
     <div className="mt-4 mb-4 px-4 flex flex-col justify-center items-center min-h-screen">
-      <Toaster position="top-right" />
+      <Toaster />
       <QueueList />
     </div>
   );

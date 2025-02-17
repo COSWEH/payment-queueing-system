@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, X, CircleUser } from "lucide-react";
+import { Menu, X, UserCog } from "lucide-react";
 
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -13,8 +13,9 @@ const Navbar = () => {
   const { user } = useAuthContext();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    console.log("user", user.id);
+    await logout(user.id);
   };
 
   const handleResetQueue = async () => {
@@ -132,7 +133,7 @@ const Navbar = () => {
                     className="flex items-center space-x-2 bg-white text-green-500 px-4 py-2 rounded-lg shadow-sm cursor-pointer"
                     onClick={() => setDropdownOpen(!isDropdownOpen)}
                   >
-                    <CircleUser size={20} />
+                    <UserCog size={25} />
                     <span className="font-medium">{user.username}</span>
                   </button>
 
@@ -242,7 +243,7 @@ const Navbar = () => {
                     className="flex items-center space-x-2 bg-white text-green-500 px-4 py-2 rounded-lg shadow-sm cursor-pointer"
                     onClick={() => setDropdownOpen(!isDropdownOpen)}
                   >
-                    <CircleUser size={20} />
+                    <UserCog size={25} />
                     <span className="font-medium">{user.username}</span>
                   </button>
 
