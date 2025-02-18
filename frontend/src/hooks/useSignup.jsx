@@ -3,13 +3,11 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export const useSignup = () => {
-  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const navigate = useNavigate();
 
   const signup = async (username, password) => {
     setIsLoading(true);
-    setError(null);
 
     if (!username.trim() || !password.trim()) {
       toast.error("All fields are required");
@@ -44,5 +42,5 @@ export const useSignup = () => {
     }
   };
 
-  return { signup, isLoading, error };
+  return { signup, isLoading };
 };
