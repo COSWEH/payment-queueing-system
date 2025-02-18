@@ -111,11 +111,28 @@ const updateQueue = async (req, res) => {
 };
 
 const deleteQueue = async (req, res) => {
+  const { teller_id } = req.body;
+
+  if (!teller_id) {
+    return res.status(400).json({ error: "User ID is required" });
+  }
+
   try {
     const pool = await poolPromise;
-    await pool.request().query("TRUNCATE TABLE Queue");
+    const result = await pool.request().input("userId", sql.Int, teller_id)
+      .query(`
+        DELETE FROM Queue 
+        WHERE teller_id = @userId 
+      `);
 
-    res.status(200).json({ message: "Queue reset successfully!" });
+    if (result.rowsAffected[0] === 0) {
+      return res.status(404).json({ message: "No queues found for this user" });
+    }
+
+    res.status(200).json({
+      message: "Queues deleted successfully!",
+      count: result.rowsAffected[0],
+    });
   } catch (err) {
     console.error("Error deleting queue:", err);
     res.status(500).json({ error: "Failed to reset queue." });

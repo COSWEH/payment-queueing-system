@@ -100,8 +100,8 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
                 disabled={buttonState.reserve.disabled}
                 className={`w-full text-lg py-2 rounded-lg transition ${
                   buttonState.reserve.disabled
-                    ? "bg-yellow-400 text-white"
-                    : "bg-yellow-400 hover:bg-yellow-300 text-white"
+                    ? "bg-yellow-500 text-white"
+                    : "bg-yellow-500 hover:bg-yellow-400 text-white"
                 }`}
               >
                 {buttonState.reserve.text}
@@ -131,8 +131,8 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
               disabled={buttonState.recall.disabled}
               className={`w-full text-lg py-2 rounded-lg transition ${
                 buttonState.recall.disabled
-                  ? "bg-yellow-400 text-white"
-                  : "bg-yellow-400 hover:bg-yellow-300 text-white"
+                  ? "bg-yellow-500 text-white"
+                  : "bg-yellow-500 hover:bg-yellow-400 text-white"
               }`}
             >
               {buttonState.recall.text}
