@@ -56,15 +56,15 @@ const Queue = ({ number, name, status, window_no, showToast }) => {
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xs text-center border-t-3 border-green-400">
+    <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xs text-center border-t-3 border-b-3 border-green-400">
       {status === "serving" && window_no && (
-        <p className="text-sm font-semibold text-white bg-green-400 rounded-xl p-1 flex items-center justify-center gap-1">
+        <p className="text-sm font-semibold text-white bg-green-400 rounded-xl p-1 flex items-center justify-center">
           Please proceed to Window
           <Hash className="w-4 h-4" /> {window_no}
         </p>
       )}
 
-      <h2 className="text-2xl font-bold text-green-700 flex items-center justify-center gap-2">
+      <h2 className="text-2xl mt-1 font-bold text-green-700 flex items-center justify-center gap-2">
         <UserRound className="w-6 h-6" />
         {name}
       </h2>

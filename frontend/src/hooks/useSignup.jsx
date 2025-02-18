@@ -25,10 +25,9 @@ export const useSignup = () => {
 
     if (!response.ok) {
       setIsLoading(false);
-      setError(json.error);
 
       if (json.error === "Username already exists") {
-        toast.error("Username already exists, please choose another one.");
+        toast.error("Username already exists");
       } else {
         toast.error(json.error || "Signup failed");
       }

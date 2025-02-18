@@ -75,6 +75,16 @@ const Signup = () => {
             </Form>
           )}
         </Formik>
+
+        <p className="text-gray-700 mt-4">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className=" text-green-500 underline underline-offset-6"
+          >
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );

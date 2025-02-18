@@ -69,7 +69,7 @@ const loginTeller = async (req, res) => {
       .query("SELECT * FROM Teller WHERE username = @username");
 
     if (userResult.recordset.length === 0) {
-      return res.status(400).json({ error: "Invalid username or password" });
+      return res.status(400).json({ error: "Username does not exist" });
     }
 
     const user = userResult.recordset[0];
