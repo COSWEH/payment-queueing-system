@@ -220,7 +220,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="text-white font-bold text-xl">
+          <div className="text-white font-bold text-base md:text-lg lg:text-xl xl:text-2xl">
             Payment Queueing System
           </div>
 
