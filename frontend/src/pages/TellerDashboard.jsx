@@ -8,26 +8,23 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const TellerDashboard = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user === undefined || user === null) {
-      setLoading(true);
-    } else {
-      setLoading(false);
+      return;
     }
-  }, [user]);
 
-  useEffect(() => {
-    if (!loading && !user) {
+    if (!user) {
       navigate("/login");
     }
-  }, [user, loading, navigate]);
+  }, [user, navigate]);
 
-  if (loading) {
+  if (!user) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        Loading...
+      <div className="flex flex-col gap-4 justify-center items-center min-h-screen p-4 bg-gray-50">
+        <p className="text-2xl md:text-3xl lg:text-4xl text-red-600 font-semibold text-center">
+          You are not authorized to view this page
+        </p>
       </div>
     );
   }
