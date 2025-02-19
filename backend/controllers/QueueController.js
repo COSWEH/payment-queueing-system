@@ -1,5 +1,13 @@
 const { sql, poolPromise } = require("../config/db");
 
+const formatName = (name) => {
+  return name
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 const getLatestQueueNumber = async (req, res) => {
   // console.log("latest foo");
   try {
@@ -46,12 +54,14 @@ const createQueue = async (req, res) => {
     return res.status(400).json({ error: "Name and number are required" });
   }
 
+  const formattedName = formatName(name);
+
   try {
     const pool = await poolPromise;
     const result = await pool
       .request()
       .input("queue_number", sql.Int, number)
-      .input("name", sql.VarChar, name)
+      .input("name", sql.VarChar, formattedName)
       .input("status", sql.VarChar, "waiting") // Default status
       .query(
         "INSERT INTO Queue (queue_number, name, status, created_at) OUTPUT Inserted.id VALUES (@queue_number, @name, @status, GETDATE())"
@@ -60,7 +70,7 @@ const createQueue = async (req, res) => {
     const newQueue = {
       id: result.recordset[0].id,
       queue_number: number,
-      name,
+      name: formattedName,
       status: "waiting",
     };
 
