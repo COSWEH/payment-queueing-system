@@ -37,7 +37,7 @@ const getAllQueues = async (req, res) => {
         SELECT q.*, t.window_no
         FROM Queue q
         LEFT JOIN Teller t ON q.teller_id = t.id
-        ORDER BY q.queue_number
+        ORDER BY CAST(q.queue_number AS INT)
       `);
 
     res.json(result.recordset);
