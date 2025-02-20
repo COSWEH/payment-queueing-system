@@ -15,7 +15,7 @@ const getLatestQueueNumber = async (req, res) => {
     const result = await pool
       .request()
       .query(
-        "SELECT TOP 1 queue_number, name FROM Queue ORDER BY queue_number DESC"
+        "SELECT TOP 1 queue_number, name FROM Queue ORDER BY CAST(queue_number AS INT) DESC"
       );
 
     if (result.recordset.length > 0) {
