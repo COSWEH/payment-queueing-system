@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, X, UserCog, RefreshCw, ChevronDown } from "lucide-react";
+import { Menu, X, UserCog, RefreshCw, ChevronDown, LogOut } from "lucide-react";
 import { toast } from "react-hot-toast";
 
 import { useLogout } from "../hooks/useLogout";
@@ -283,18 +283,6 @@ const Navbar = () => {
                   >
                     Teller Dashboard
                   </NavLink>
-
-                  <NavLink
-                    to="/login"
-                    onClick={handleLogout}
-                    className={({ isActive }) =>
-                      `text-white hover:text-gray-200 transition ${
-                        isActive ? "border-b-2" : ""
-                      }`
-                    }
-                  >
-                    Logout
-                  </NavLink>
                 </div>
 
                 {/* User Profile */}
@@ -323,6 +311,15 @@ const Navbar = () => {
                         >
                           <RefreshCw size={18} className="mr-2" />
                           Reset Queue
+                        </button>
+                      </div>
+                      <hr className="border-none h-px bg-gray-300" />
+                      <div className="py-2">
+                        <button className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-150">
+                          <LogOut size={18} className="mr-2" />
+                          <NavLink to="/" onClick={handleLogout}>
+                            Logout
+                          </NavLink>
                         </button>
                       </div>
                     </div>
@@ -404,18 +401,6 @@ const Navbar = () => {
                   Teller Dashboard
                 </NavLink>
 
-                <NavLink
-                  to="/"
-                  onClick={handleLogout}
-                  className={({ isActive }) =>
-                    `text-white hover:text-gray-200 transition ${
-                      isActive ? "border-b-2" : ""
-                    }`
-                  }
-                >
-                  Logout
-                </NavLink>
-
                 {/* User Profile */}
                 <div className="relative">
                   <button
@@ -442,6 +427,15 @@ const Navbar = () => {
                         >
                           <RefreshCw size={18} className="mr-2" />
                           Reset Queue
+                        </button>
+                      </div>
+                      <hr className="border-none h-px bg-gray-300" />
+                      <div className="py-2">
+                        <button className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-150">
+                          <LogOut size={18} className="mr-2" />
+                          <NavLink to="/" onClick={handleLogout}>
+                            Logout
+                          </NavLink>
                         </button>
                       </div>
                     </div>
