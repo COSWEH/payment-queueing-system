@@ -10,8 +10,6 @@ const createToken = (id) => {
 };
 
 const signupTeller = async (req, res) => {
-  console.log("signup teller");
-
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -53,8 +51,6 @@ const signupTeller = async (req, res) => {
 };
 
 const loginTeller = async (req, res) => {
-  console.log("login teller");
-
   const { username, password, window_no } = req.body;
 
   if (!username || !password || !window_no) {
@@ -125,7 +121,7 @@ const loginTeller = async (req, res) => {
 
 const logoutTeller = async (req, res) => {
   const { id } = req.body;
-  // console.log("logout teller", id);
+  
   try {
     const pool = await poolPromise;
     await pool
