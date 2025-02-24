@@ -17,6 +17,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     console.log("user", user.id);
     await logout(user.id);
+    setDropdownOpen(false);
   };
 
   const handleResetQueue = async () => {
@@ -317,7 +318,7 @@ const Navbar = () => {
                       <div className="py-2">
                         <button className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-150">
                           <LogOut size={18} className="mr-2" />
-                          <NavLink to="/" onClick={handleLogout}>
+                          <NavLink to="/login" onClick={handleLogout}>
                             Logout
                           </NavLink>
                         </button>
@@ -433,7 +434,7 @@ const Navbar = () => {
                       <div className="py-2">
                         <button className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-150">
                           <LogOut size={18} className="mr-2" />
-                          <NavLink to="/" onClick={handleLogout}>
+                          <NavLink to="/login" onClick={handleLogout}>
                             Logout
                           </NavLink>
                         </button>
